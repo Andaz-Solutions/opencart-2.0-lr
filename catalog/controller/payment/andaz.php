@@ -53,7 +53,7 @@ class ControllerPaymentAndaz extends Controller {
 			'client_username' => $this->config->get('andaz_username'),
 			'client_password' => $this->config->get('andaz_password'),
 			'client_token' => $this->config->get('andaz_token'),
-			'account_number' => html_entity_decode(preg_match('/[^0-9]/', '', $this->request->post['cc_number']), ENT_QUOTES, 'UTF-8'),
+			'account_number' => html_entity_decode(preg_replace('/[^0-9]/', '', $this->request->post['cc_number']), ENT_QUOTES, 'UTF-8'),
 			'cvv2' => html_entity_decode($this->request->post['cc_cvv2'], ENT_QUOTES, 'UTF-8'),
 			'expiration_month' => html_entity_decode($this->request->post['cc_expire_date_month'], ENT_QUOTES, 'UTF-8'),
 			'expiration_year' => html_entity_decode($this->request->post['cc_expire_date_year'], ENT_QUOTES, 'UTF-8'),
