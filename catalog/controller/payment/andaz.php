@@ -63,7 +63,7 @@ class ControllerPaymentAndaz extends Controller {
 			'billing_date_of_birth' => (empty($this->session->data['guest']['birthday']) ? (empty($this->session->data['birthday']) ? '' : $this->session->data['birthday']) : $this->session->data['guest']['birthday']),
 			'billing_email_address' => html_entity_decode($order_info['email'], ENT_QUOTES, 'UTF-8'),
 			'billing_address_line_1' => html_entity_decode($order_info['payment_address_1'], ENT_QUOTES, 'UTF-8'),
-			'billing_phone_number' => html_entity_decode($order_info['telephone'], ENT_QUOTES, 'UTF-8'),
+			'billing_phone_number' => html_entity_decode(preg_replace('/[^0-9]/', '', $order_info['telephone']), ENT_QUOTES, 'UTF-8'),
 			'billing_city' =>  html_entity_decode($order_info['payment_city'], ENT_QUOTES, 'UTF-8'),
 			'billing_state' => ($order_info['payment_iso_code_2'] != 'US') ? $order_info['payment_zone'] : html_entity_decode($order_info['payment_zone_code'], ENT_QUOTES, 'UTF-8'),
 			'billing_country' => html_entity_decode($order_info['payment_iso_code_2'], ENT_QUOTES, 'UTF-8'),
