@@ -57,7 +57,7 @@ class ControllerPaymentAndaz extends Controller {
 			'cvv2' => html_entity_decode($this->request->post['cc_cvv2'], ENT_QUOTES, 'UTF-8'),
 			'expiration_month' => html_entity_decode($this->request->post['cc_expire_date_month'], ENT_QUOTES, 'UTF-8'),
 			'expiration_year' => html_entity_decode($this->request->post['cc_expire_date_year'], ENT_QUOTES, 'UTF-8'),
-			'amount' => $this->currency->format($order_info['total'], $order_info['currency_code'], false, false),
+			'initial_amount' => $this->currency->format($order_info['total'], $order_info['currency_code'], false, false),
 			'billing_first_name' => html_entity_decode($order_info['payment_firstname'], ENT_QUOTES, 'UTF-8'),
 			'billing_last_name' => html_entity_decode($order_info['payment_lastname'], ENT_QUOTES, 'UTF-8'),
 			'billing_date_of_birth' => (empty($this->session->data['guest']['birthday']) ? (empty($this->session->data['birthday']) ? '' : $this->session->data['birthday']) : $this->session->data['guest']['birthday']),
@@ -109,8 +109,8 @@ class ControllerPaymentAndaz extends Controller {
 		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
 		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
 		curl_setopt($curl, CURLOPT_POST, 1);
-		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
-		curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 40);
+		curl_setopt($curl, CURLOPT_TIMEOUT, 120);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($request, '', '&'));
 
 		$response = curl_exec($curl);
